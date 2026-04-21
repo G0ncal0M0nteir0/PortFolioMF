@@ -1,0 +1,68 @@
+import { Work } from "../types/work";
+
+export const works: Work[] = [
+  {
+    titulo: "Ilustração X",
+    descricao: "Projeto feito em Blender",
+    imagem: "/images/work1.jpg",
+    categoria: ["3D", "Pintura"],
+    ferramentas: ["Affinity Designer", "Filmora"],
+    data_de_criacao: "2024-09-23",
+  },
+  {
+    titulo: "Concept Art A",
+    descricao: "Exploração de personagem",
+    imagem: "/images/work2.jpg",
+    categoria: ["Design"],
+    ferramentas: ["Procreate", "Solid Works"],
+    data_de_criacao: "2024-07-10",
+  },
+  {
+    titulo: "Concept Art B",
+    descricao: "Exploração de personagem",
+    imagem: "/images/work2.jpg",
+    categoria: ["Design"],
+    ferramentas: ["Procreate"],
+    data_de_criacao: "2024-07-10",
+  },
+  {
+    titulo: "Render Produto",
+    descricao: "Render realista de produto",
+    imagem: "/images/work3.jpg",
+    categoria: ["Escultura", "3D"],
+    ferramentas: ["Affinity Photo", "Blender"],
+    data_de_criacao: "2024-05-02",
+  },
+  {
+    titulo: "Logo Branding",
+    descricao: "Identidade visual",
+    imagem: "/images/work4.jpg",
+    categoria: ["Design"],
+    ferramentas: ["Affinity Publisher"],
+    data_de_criacao: "2023-12-12",
+  },
+  {
+    titulo: "Ilustração Infantil",
+    descricao: "Estilo cartoon",
+    imagem: "/images/work5.jpg",
+    categoria: ["Ilustração"],
+    ferramentas: ["Procreate"],
+    data_de_criacao: "2024-01-20",
+  },
+  {
+    titulo: "Cena Sci-Fi",
+    descricao: "Ambiente futurista",
+    imagem: "/images/work6.jpg",
+    categoria: ["3D"],
+    ferramentas: ["Blender", "Filmora"],
+    data_de_criacao: "2024-03-15",
+  },
+  {
+    titulo: "Poster Evento",
+    descricao: "Design gráfico",
+    imagem: "/images/work7.jpg",
+    categoria: ["Design", "Ilustração"],
+    ferramentas: ["Solid Works"],
+    data_de_criacao: "2024-02-01",
+  },
+];
