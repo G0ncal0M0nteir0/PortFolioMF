@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const categorias = [
   "Pintura",
@@ -9,7 +10,19 @@ const categorias = [
   "Design Gráfico",
   "Design Editorial",
   "Design de Produto",
+  "Fotografia",
 ];
+
+// Maps each category to its route
+const categoriaRoutes: Record<string, string> = {
+  "Pintura": "/pintura",
+  "Escultura": "/escultura",
+  "Desenho": "/desenho",
+  "Design Gráfico": "/design-grafico",
+  "Design Editorial": "/design-editorial",
+  "Design de Produto": "/design-produto",
+  "Fotografia": "/fotografia",
+};
 
 interface NavbarProps {
   onCategoriaSelect?: (index: number) => void;
@@ -18,6 +31,7 @@ interface NavbarProps {
 export default function Navbar({ onCategoriaSelect }: NavbarProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const router = useRouter();
 
   return (
     <nav
@@ -55,7 +69,7 @@ export default function Navbar({ onCategoriaSelect }: NavbarProps) {
             setDropdownOpen(true);
           }}
           onMouseLeave={() => {
-            closeTimer.current = setTimeout(() => setDropdownOpen(false), 2000);
+            closeTimer.current = setTimeout(() => setDropdownOpen(false), 200);
           }}
         >
           <a
@@ -115,7 +129,7 @@ export default function Navbar({ onCategoriaSelect }: NavbarProps) {
             {categorias.map((cat, i) => (
               <a
                 key={cat}
-                href="#"
+                href={categoriaRoutes[cat]}
                 style={{
                   display: "block",
                   padding: "8px 20px",
@@ -134,9 +148,11 @@ export default function Navbar({ onCategoriaSelect }: NavbarProps) {
                   e.currentTarget.style.background = "transparent";
                   e.currentTarget.style.paddingLeft = "20px";
                 }}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   onCategoriaSelect?.(i);
                   setDropdownOpen(false);
+                  router.push(categoriaRoutes[cat]);
                 }}
               >
                 {cat}
