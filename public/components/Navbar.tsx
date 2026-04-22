@@ -46,20 +46,24 @@ export default function Navbar({ onCategoriaSelect }: NavbarProps) {
         {/* Sobre mim */}
         <li>
           <a
-            href="#"
-            className="text-sm font-medium tracking-wide uppercase"
-            style={{
-              color: "#111111",
-              textDecoration: "none",
-              display: "inline-block",
-              transition: "transform 0.2s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.15)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-          >
-            Sobre mim
-          </a>
-        </li>
+          href="/"
+          className="text-sm font-medium tracking-wide uppercase"
+          style={{
+            color: "#111111",
+            textDecoration: "none",
+            display: "inline-block",
+            transition: "transform 0.2s ease",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.15)")}
+          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          onClick={(e) => {
+            e.preventDefault();
+            router.push("/");
+          }}
+        >
+          Sobre mim
+        </a>
+      </li>
 
         {/* Trabalhos — with dropdown */}
         <li
