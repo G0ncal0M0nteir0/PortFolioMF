@@ -4,8 +4,12 @@ import localFont from "next/font/local";
 import { useState } from "react";
 import Navbar from "../../public/components/Navbar";
 
-const garamondItalic = localFont({ src: "../fonts/EBGaramond-Italic-VariableFont_wght.ttf" });
-const garamond = localFont({ src: "../fonts/EBGaramond-VariableFont_wght.ttf" });
+const garamondItalic = localFont({
+  src: "../fonts/EBGaramond-Italic-VariableFont_wght.ttf",
+});
+const garamond = localFont({
+  src: "../fonts/EBGaramond-VariableFont_wght.ttf",
+});
 
 const pinturaWorks = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
@@ -17,23 +21,20 @@ const pinturaWorks = Array.from({ length: 20 }, (_, i) => ({
 export default function Pintura() {
   const [wideMap, setWideMap] = useState<Record<number, boolean>>({});
 
-  const sortedWorks = [...pinturaWorks].sort((a, b) => {
-  const aWide = wideMap[a.id];
-  const bWide = wideMap[b.id];
+  const handleImageLoad = (
+    id: number,
+    e: React.SyntheticEvent<HTMLImageElement>
+  ) => {
+    const img = e.currentTarget;
+    const ratio = img.naturalWidth / img.naturalHeight;
 
-  if (aWide === undefined || bWide === undefined) return 0;
+    const isWide = ratio >= 1.2;
 
-    return (bWide ? 1 : 0) - (aWide ? 1 : 0);
-  });
-  const handleImageLoad = (id: number, e: React.SyntheticEvent<HTMLImageElement>) => {
-  const img = e.currentTarget;
-  const ratio = img.naturalWidth / img.naturalHeight;
-
-  console.log(`Image ${id}: ratio = ${ratio}`);
-
-  const isWide = ratio >= 1.2;
-  setWideMap((prev) => ({ ...prev, [id]: isWide }));
-};
+    setWideMap((prev) => ({
+      ...prev,
+      [id]: isWide,
+    }));
+  };
 
   return (
     <>
@@ -46,12 +47,11 @@ export default function Pintura() {
           boxSizing: "border-box",
         }}
       >
-        {/* ── FULLSCREEN HERO ── */}
+        {/* ── HERO ── */}
         <div
           style={{
             width: "100%",
             height: "100vh",
-            paddingTop: 80,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -62,87 +62,91 @@ export default function Pintura() {
             src="/images/pintura.svg"
             alt="Pintura"
             style={{
-              width: "130%",
-              height: "160%",
+              width: "100%",
+              height: "100%",
               objectFit: "contain",
-              objectPosition: "top",
+              objectPosition: "center",
+              display: "block",
             }}
           />
         </div>
 
-        {/* ── GRID WRAPPER ── */}
+        {/* ── GRID ── */}
         <div style={{ padding: "0 48px 80px 48px" }}>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
+              gridAutoFlow: "dense",
               gap: 0,
               border: "2px solid #111",
             }}
           >
-            {sortedWorks.map((work) => {
+            {pinturaWorks.map((work) => {
               const isWide = wideMap[work.id] ?? false;
+
               return (
                 <div
                   key={work.id}
                   style={{
                     gridColumn: isWide ? "span 2" : "span 1",
-                    cursor: "pointer",
-                    position: "relative",
-                    borderRight: "2px solid #111",
-                    borderBottom: "2px solid #111",
+                    border: "2px solid #111",
+                    boxSizing: "border-box",
+                    display: "flex",
+                    flexDirection: "column",
+                    background: "#f5f2ed",
                   }}
                 >
-                  {/* Title above image */}
+                  {/* TITLE */}
                   <p
                     className={garamondItalic.className}
                     style={{
                       margin: 0,
-                      padding: "6px 10px 0px 10px",
+                      padding: "10px 10px 0 10px",
                       fontSize: 18,
                       fontWeight: 700,
-                      color: "#111",
                       textAlign: "center",
+                      color: "#111",
                     }}
                   >
                     {work.titulo}
                   </p>
 
-                  {/* Image wrapper */}
+                  {/* IMAGE */}
                   <div
                     style={{
-                      margin: "12px 30px 4px 30px",
+                      margin: "12px",
                       aspectRatio: isWide ? "10 / 6" : "5 / 6",
                       overflow: "hidden",
                       background: "#f5f2ed",
-                      position: "relative",
                     }}
                   >
                     <img
                       src={work.imagem}
                       alt={work.titulo}
+                      onLoad={(e) => handleImageLoad(work.id, e)}
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.display =
+                          "none";
+                      }}
                       style={{
                         width: "100%",
                         height: "100%",
                         objectFit: "contain",
                         display: "block",
                       }}
-                      onLoad={(e) => handleImageLoad(work.id, e)}
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).style.display = "none";
-                      }}
                     />
                   </div>
 
-                  {/* Date below image */}
+                  {/* DATE */}
                   <p
                     className={garamond.className}
                     style={{
                       margin: 0,
-                      padding: "10px 5px",
+                      padding: "0 10px 10px 10px",
                       fontSize: 14,
-                      color: "#111",
                       textAlign: "center",
+                      color: "#111",
                     }}
                   >
                     {work.data}

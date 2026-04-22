@@ -33,7 +33,6 @@ export default function Fotografia() {
           style={{
             width: "100%",
             height: "100vh",
-            paddingTop: 80,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -44,10 +43,11 @@ export default function Fotografia() {
             src="/images/titulo_fotografia.svg"
             alt="Fotografia"
             style={{
-              width: "130%",
-              height: "160%",
-              objectFit: "contain",
-              objectPosition: "top",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              display: "block",
             }}
           />
         </div>
