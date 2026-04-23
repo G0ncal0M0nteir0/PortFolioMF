@@ -28,11 +28,8 @@ export default function DesignGrafico() {
         <div
           style={{
             width: "100%",
-            height: "calc(100vh - 80px)",
-            paddingTop: 80,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            height: "100vh",
+            marginTop: -10,          
             overflow: "hidden",
           }}
         >
@@ -40,10 +37,11 @@ export default function DesignGrafico() {
             src="/images/design_grafico.svg"
             alt="Design Gráfico"
             style={{
-              width: "130%",
-              height: "10%",
-              objectFit: "contain",
-              objectPosition: "top",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              display: "block",
             }}
           />
         </div>
