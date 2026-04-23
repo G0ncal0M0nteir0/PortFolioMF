@@ -10,6 +10,9 @@ const garamondItalic = localFont({
 const garamond = localFont({
   src: "../fonts/EBGaramond-VariableFont_wght.ttf",
 });
+const chelseaMarket = localFont({
+  src: "../fonts/ChelseaMarket-Regular.ttf",
+});
 
 const pinturaWorks = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
@@ -27,13 +30,8 @@ export default function Pintura() {
   ) => {
     const img = e.currentTarget;
     const ratio = img.naturalWidth / img.naturalHeight;
-
     const isWide = ratio >= 1.2;
-
-    setWideMap((prev) => ({
-      ...prev,
-      [id]: isWide,
-    }));
+    setWideMap((prev) => ({ ...prev, [id]: isWide }));
   };
 
   return (
@@ -42,7 +40,9 @@ export default function Pintura() {
 
       <main
         style={{
-          background: "#f5f2ed",
+          backgroundImage: "url('/images/fundo_web_pintura.svg')",
+          backgroundRepeat: "repeat-y",
+          backgroundSize: "100% auto",
           minHeight: "100vh",
           boxSizing: "border-box",
         }}
@@ -59,16 +59,33 @@ export default function Pintura() {
           }}
         >
           <img
-            src="/images/pintura.svg"
+            src="/images/titulo_pintura.svg"
             alt="Pintura"
             style={{
               width: "100%",
               height: "100%",
               objectFit: "contain",
-              objectPosition: "center",
+              objectPosition: "left",
               display: "block",
             }}
           />
+          <h1
+            className={chelseaMarket.className}
+            style={{
+              position: "absolute",
+              left: "11%",
+              top: "55%",
+              transform: "translateY(-50%)",
+              transformOrigin: "center center",
+              margin: 0,
+              fontSize: "150px",
+              color: "#111",
+              letterSpacing: "0.1em",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Pintura
+          </h1>
         </div>
 
         {/* ── GRID ── */}
@@ -94,7 +111,7 @@ export default function Pintura() {
                     boxSizing: "border-box",
                     display: "flex",
                     flexDirection: "column",
-                    background: "#f5f2ed",
+                    background: "transparent",
                   }}
                 >
                   {/* TITLE */}
@@ -103,8 +120,8 @@ export default function Pintura() {
                     style={{
                       margin: 0,
                       padding: "10px 10px 0 10px",
-                      fontSize: 18,
-                      fontWeight: 700,
+                      fontSize: 35,
+                      fontWeight: 900,
                       textAlign: "center",
                       color: "#111",
                     }}
@@ -115,10 +132,10 @@ export default function Pintura() {
                   {/* IMAGE */}
                   <div
                     style={{
-                      margin: "12px",
-                      aspectRatio: isWide ? "10 / 6" : "5 / 6",
+                      margin: "0px 40px",
+                      height: "400px",
                       overflow: "hidden",
-                      background: "#f5f2ed",
+                      background: "transparent",
                     }}
                   >
                     <img
@@ -144,9 +161,10 @@ export default function Pintura() {
                     style={{
                       margin: 0,
                       padding: "0 10px 10px 10px",
-                      fontSize: 14,
+                      fontSize: 25,
                       textAlign: "center",
                       color: "#111",
+                      fontWeight: 600,
                     }}
                   >
                     {work.data}

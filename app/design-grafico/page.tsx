@@ -28,7 +28,7 @@ export default function DesignGrafico() {
         <div
           style={{
             width: "100%",
-            height: "100vh",
+            height: "calc(100vh - 80px)",
             paddingTop: 80,
             display: "flex",
             alignItems: "center",
@@ -41,7 +41,7 @@ export default function DesignGrafico() {
             alt="Design Gráfico"
             style={{
               width: "130%",
-              height: "160%",
+              height: "10%",
               objectFit: "contain",
               objectPosition: "top",
             }}
