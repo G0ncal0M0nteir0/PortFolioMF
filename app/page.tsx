@@ -10,6 +10,7 @@ const easeOutQuad = (t: number) => 1 - (1 - t) * (1 - t);
 const sloop = localFont({ src: "./fonts/Sloop-ScriptThree.ttf" });
 const garamondItalic = localFont({ src: "./fonts/EBGaramond-Italic-VariableFont_wght.ttf" });
 const garamond = localFont({ src: "./fonts/EBGaramond-VariableFont_wght.ttf" });
+const chelseaMarket = localFont({ src: "./fonts/ChelseaMarket-Regular.ttf" });
 
 const imageList = [
   "/images/square_image1.jpg",
@@ -239,7 +240,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          console.log("TEST CHANGE");
           {/* BOTTOM ROW: tool icon selector */}
           <div
             style={{
@@ -299,133 +299,155 @@ export default function Home() {
       <div
         style={{
           width: "100%",
-          display: "flex",
-          justifyContent: "flex-start",
+          minHeight: "100vh",
+          position: "relative",
+          zIndex: 1,
           background: "#ffffff",
         }}
       >
-        <div
+        {/* BACKGROUND PHOTO — fills the full section */}
+        <img
+          src="/images/eu_foto.png"
+          alt="Eu"
           style={{
-            width: "50%",
-            minHeight: "100vh",
-            position: "relative",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "70%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+            zIndex: 0,
+          }}
+        />
+
+        {/* PANELS — keep as before but now inside the full-width div */}
+        {/* PANEL 1 */}
+        <div
+          onClick={() => switchPanelImage(0)}
+          title="Clique para trocar imagem"
+          style={{
+            position: "absolute",
+            top: "15%",
+            left: "8%",
+            width: "9%",
+            aspectRatio: "1 / 1",
             overflow: "hidden",
+            cursor: "pointer",
+            zIndex: 2,
           }}
         >
           <img
-            src="/images/eu_foto.png"
-            alt="Eu"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "0% center",
-              zIndex: 1,
-              position: "relative",
-            }}
+            src={imageList[panelImages[0]]}
+            alt="Panel 1"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: `scale(${panelScales[0]})`, transition: "transform 0.2s ease" }}
           />
+        </div>
 
-          {/* PANEL 1 */}
-          <div
-            onClick={() => switchPanelImage(0)}
-            title="Clique para trocar imagem"
-            style={{
-              position: "absolute",
-              top: "15%",
-              left: "16%",
-              width: "18%",
-              aspectRatio: "1 / 1",
-              overflow: "hidden",
-              cursor: "pointer",
-              zIndex: 2,
-            }}
-          >
-            <img
-              src={imageList[panelImages[0]]}
-              alt="Panel 1"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-                transform: `scale(${panelScales[0]})`,
-                transition: "transform 0.2s ease",
-              }}
-            />
-          </div>
-
-          {/* PANEL 2 */}
-          <div
-            onClick={() => switchPanelImage(1)}
-            title="Clique para trocar imagem"
-            style={{
-              position: "absolute",
-              top: "22%",
-              left: "42%",
-              width: "16%",
-              aspectRatio: "1 / 1",
-              overflow: "hidden",
-              cursor: "pointer",
-              zIndex: 2,
-            }}
-          >
-            <img
-              src={imageList[panelImages[1]]}
-              alt="Panel 2"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-                transform: `scale(${panelScales[1]})`,
-                transition: "transform 0.2s ease",
-              }}
-            />
-          </div>
-
-          {/* PANEL 3 */}
-          <div
-            onClick={() => switchPanelImage(2)}
-            title="Clique para trocar imagem"
-            style={{
-              position: "absolute",
-              top: "40%",
-              left: "23%",
-              width: "15%",
-              aspectRatio: "1 / 1",
-              overflow: "hidden",
-              cursor: "pointer",
-              zIndex: 2,
-            }}
-          >
-            <img
-              src={imageList[panelImages[2]]}
-              alt="Panel 3"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-                transform: `scale(${panelScales[2]})`,
-                transition: "transform 0.2s ease",
-              }}
-            />
-          </div>
-
-          {/* FRONT LAYER: PANELS OVERLAY */}
+        {/* PANEL 2 */}
+        <div
+          onClick={() => switchPanelImage(1)}
+          title="Clique para trocar imagem"
+          style={{
+            position: "absolute",
+            top: "22%",
+            left: "21%",
+            width: "8%",
+            aspectRatio: "1 / 1",
+            overflow: "hidden",
+            cursor: "pointer",
+            zIndex: 2,
+          }}
+        >
           <img
-            src="/images/panels.png"
-            alt="Panels"
-            style={{
-              position: "absolute",
-              top: "0%",
-              left: "50%",
-              transform: "translateX(-65%) translateY(25%)",
-              width: "70%",
-              pointerEvents: "none",
-              zIndex: 3,
-            }}
+            src={imageList[panelImages[1]]}
+            alt="Panel 2"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: `scale(${panelScales[1]})`, transition: "transform 0.2s ease" }}
           />
+        </div>
+
+        {/* PANEL 3 */}
+        <div
+          onClick={() => switchPanelImage(2)}
+          title="Clique para trocar imagem"
+          style={{
+            position: "absolute",
+            top: "40%",
+            left: "12%",
+            width: "7%",
+            aspectRatio: "1 / 1",
+            overflow: "hidden",
+            cursor: "pointer",
+            zIndex: 2,
+          }}
+        >
+          <img
+            src={imageList[panelImages[2]]}
+            alt="Panel 3"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: `scale(${panelScales[2]})`, transition: "transform 0.2s ease" }}
+          />
+        </div>
+
+        {/* PANELS OVERLAY */}
+        <img
+          src="/images/panels.png"
+          alt="Panels"
+          style={{
+            position: "absolute",
+            top: "0%",
+            left: "25%",
+            transform: "translateX(-65%) translateY(25%)",
+            width: "35%",
+            pointerEvents: "none",
+            zIndex: 3,
+          }}
+        />
+
+        {/* TEXT — sits on top of the photo, right side */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 4,
+            width: "50%",
+            minHeight: "100vh",
+            marginLeft: "50%",          // push to the right half — adjust this
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "80px 64px",
+            boxSizing: "border-box",
+          }}
+        >
+          <h2
+            className={chelseaMarket.className}
+            style={{ fontSize: 48, fontWeight: 700, color: "#111", margin: "0 0 32px 0" }}
+          >
+            Sobre mim
+          </h2>
+
+          <p className={garamondItalic.className} style={{ fontSize: 20, lineHeight: 1.9, color: "#333", margin: "0 0 24px 0" }}>
+            Sou licenciado em Design pela Universidade de Aveiro, nascido em 2003,
+            com um interesse genuíno por criar, desenvolver ideias e transformar conceitos em algo real.
+          </p>
+
+          <p className={garamondItalic.className} style={{ fontSize: 20, lineHeight: 1.9, color: "#333", margin: "0 0 24px 0" }}>
+            O meu percurso tem passado por várias linguagens visuais — gosto de explorar materiais,
+            experimentar diferentes formas de expressar a arte e encontrar soluções que cruzem estética
+            com propósito. Desde a infância que a minha forma de fazer arte foi evoluindo, mas o gosto
+            por criar com as mãos sempre ficou. Sou alguém que gosta de experimentar, construir e ver as ideias a acontecer.
+          </p>
+
+          <p className={garamondItalic.className} style={{ fontSize: 20, lineHeight: 1.9, color: "#333", margin: "0 0 40px 0" }}>
+            Acredito que o verdadeiro crescimento acontece quando deixamos que a experiência nos transforme,
+            em vez de apenas repetirmos aquilo que já sabemos.
+          </p>
+
+          <p
+            className={garamondItalic.className}
+            style={{ fontSize: 22, lineHeight: 1.7, color: "#09134c", fontStyle: "italic", textAlign: "right", margin: 0 }}
+          >
+            "Aprende com o que vives, não vivas com o que aprendes."
+          </p>
         </div>
       </div>
 
