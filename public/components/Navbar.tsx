@@ -77,7 +77,7 @@ export default function Navbar({ onCategoriaSelect }: NavbarProps) {
           }}
         >
           <a
-            href="#"
+            href="/trabalhos"
             className="text-sm font-medium tracking-wide uppercase"
             style={{
               color: "#111111",
@@ -89,6 +89,10 @@ export default function Navbar({ onCategoriaSelect }: NavbarProps) {
             }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.15)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            onClick={(e) => {
+              e.preventDefault();
+              router.push("/trabalhos");
+            }}
           >
             Trabalhos
             <svg
