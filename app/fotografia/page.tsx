@@ -1,22 +1,31 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import localFont from "next/font/local";
 import Navbar from "../../public/components/Navbar";
+import { createClient } from "@/utils/supabase/client";
 
-const sloop = localFont({ src: "../fonts/Sloop-ScriptThree.ttf" });
 const garamondItalic = localFont({ src: "../fonts/EBGaramond-Italic-VariableFont_wght.ttf" });
 const garamond = localFont({ src: "../fonts/EBGaramond-VariableFont_wght.ttf" });
 
-// ── Placeholder works – replace with real data from your works array ──────────
-const fotografiaWorks = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  titulo: "Titulo",
-  data: "16/04/2026",
-  imagem: `/images/work${(i % 5) + 1}.jpg`, // swap for real images
-}));
-
-
 export default function Fotografia() {
+  const [works, setWorks] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from("Work")
+        .select("*")
+        .contains("categoria", ["Fotografia"])
+        .order("created_at", { ascending: false });
+
+      if (error) console.error(error);
+      else setWorks(data ?? []);
+    };
+    fetch();
+  }, []);
+
   return (
     <>
       <Navbar onCategoriaSelect={() => {}} />
@@ -61,7 +70,7 @@ export default function Fotografia() {
             columnFill: "balance",
           }}
         >
-          {fotografiaWorks.map((work) => (
+          {works.map((work) => (
             <div
               key={work.id}
               style={{
@@ -77,7 +86,6 @@ export default function Fotografia() {
                 (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
               }}
             >
-              {/* Card frame */}
               <div
                 style={{
                   border: "2.5px solid #111",
@@ -86,7 +94,6 @@ export default function Fotografia() {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
                 }}
               >
-                {/* Image */}
                 <div
                   style={{
                     width: "100%",
@@ -105,13 +112,11 @@ export default function Fotografia() {
                       display: "block",
                     }}
                     onError={(e) => {
-                      // Fallback to black box if image missing
                       (e.currentTarget as HTMLImageElement).style.display = "none";
                     }}
                   />
                 </div>
 
-                {/* Caption */}
                 <div style={{ marginTop: 8, paddingLeft: 2 }}>
                   <p
                     className={garamondItalic.className}
@@ -134,7 +139,7 @@ export default function Fotografia() {
                       marginTop: 2,
                     }}
                   >
-                    {work.data}
+                    {work.data_de_criacao}
                   </p>
                 </div>
               </div>

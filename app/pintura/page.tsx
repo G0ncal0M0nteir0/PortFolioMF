@@ -1,8 +1,9 @@
 "use client";
 
 import localFont from "next/font/local";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../public/components/Navbar";
+import { createClient } from "@/utils/supabase/client";
 
 const garamondItalic = localFont({
   src: "../fonts/EBGaramond-Italic-VariableFont_wght.ttf",
@@ -14,15 +15,24 @@ const chelseaMarket = localFont({
   src: "../fonts/ChelseaMarket-Regular.ttf",
 });
 
-const pinturaWorks = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  titulo: "Titulo",
-  data: "16/04/2026",
-  imagem: `/images/work${(i % 5) + 1}.jpg`,
-}));
-
 export default function Pintura() {
+  const [works, setWorks] = useState<any[]>([]);
   const [wideMap, setWideMap] = useState<Record<number, boolean>>({});
+
+  useEffect(() => {
+    const fetch = async () => {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from("Work")
+        .select("*")
+        .contains("categoria", ["Pintura"])
+        .order("created_at", { ascending: false });
+
+      if (error) console.error(error);
+      else setWorks(data ?? []);
+    };
+    fetch();
+  }, []);
 
   const handleImageLoad = (
     id: number,
@@ -99,7 +109,7 @@ export default function Pintura() {
               border: "2px solid #111",
             }}
           >
-            {pinturaWorks.map((work) => {
+            {works.map((work) => {
               const isWide = wideMap[work.id] ?? false;
 
               return (
@@ -114,7 +124,6 @@ export default function Pintura() {
                     background: "transparent",
                   }}
                 >
-                  {/* TITLE */}
                   <p
                     className={garamondItalic.className}
                     style={{
@@ -129,7 +138,6 @@ export default function Pintura() {
                     {work.titulo}
                   </p>
 
-                  {/* IMAGE */}
                   <div
                     style={{
                       margin: "0px 40px",
@@ -155,7 +163,6 @@ export default function Pintura() {
                     />
                   </div>
 
-                  {/* DATE */}
                   <p
                     className={garamond.className}
                     style={{
@@ -167,7 +174,7 @@ export default function Pintura() {
                       fontWeight: 600,
                     }}
                   >
-                    {work.data}
+                    {work.data_de_criacao}
                   </p>
                 </div>
               );
