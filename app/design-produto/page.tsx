@@ -9,6 +9,7 @@ import { createClient } from "@/utils/supabase/client";
 
 const garamondItalic = localFont({ src: "../fonts/EBGaramond-Italic-VariableFont_wght.ttf" });
 const garamond = localFont({ src: "../fonts/EBGaramond-VariableFont_wght.ttf" });
+const sloop = localFont({ src: "../fonts/Sloop-ScriptThree.ttf" });
 
 export default function Produto() {
   const [works, setWorks] = useState<any[]>([]);
@@ -46,6 +47,7 @@ export default function Produto() {
             height: "100vh",
             marginTop: -10,
             overflow: "hidden",
+            position: "relative",
           }}
         >
           <img
@@ -59,6 +61,33 @@ export default function Produto() {
               display: "block",
             }}
           />
+
+          {/* ── HERO TEXT ── */}
+          <div
+            style={{
+              position: "absolute",
+              top: "28%",
+              left: "49%",
+              transform: "translate(-50%)",
+              zIndex: 2,
+              display: "flex",
+              alignItems: "baseline",
+              pointerEvents: "none",
+            }}
+          >
+            <span
+              className={sloop.className}
+              style={{
+                fontSize: 250,
+                color: "rgb(23, 72, 118)",
+                lineHeight: 1,
+                textShadow: "0 4px 32px rgba(0,0,0,0.3)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Produto
+            </span>
+          </div>
         </div>
 
         {/* ── MASONRY GRID ── */}
@@ -99,7 +128,7 @@ export default function Produto() {
                   aspectRatio: i % 3 === 0 ? "3 / 4" : i % 3 === 1 ? "4 / 5" : "1 / 1",
                   overflow: "hidden",
                   background: "#ccc",
-                  borderRadius: 0, // ← straight corners
+                  borderRadius: 0,
                   position: "relative",
                 }}
               >
@@ -128,7 +157,7 @@ export default function Produto() {
                     display: "flex",
                     alignItems: "flex-end",
                     padding: "14px 12px",
-                    borderRadius: 0, // ← straight corners
+                    borderRadius: 0,
                   }}
                 >
                   <p
