@@ -107,7 +107,7 @@ export default function Home() {
           }}
           autoPlay loop muted playsInline
         >
-          <source src="/videos/videox.mp4" type="video/mp4" />
+          <source src="https://pub-73c86230018d4e9885214374b5f3b6ee.r2.dev/videox.mp4" type="video/mp4" />
         </video>
 
         <div className="absolute inset-0 bg-white" style={{ opacity: scrollProgress }} />

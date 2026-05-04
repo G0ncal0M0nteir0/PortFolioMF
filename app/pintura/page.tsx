@@ -50,7 +50,7 @@ export default function Pintura() {
 
       <main
         style={{
-          backgroundImage: "url('/images/fundo_web_pintura.svg')",
+          backgroundImage: "url('https://pub-73c86230018d4e9885214374b5f3b6ee.r2.dev/fundo_web_pintura.svg')",
           backgroundRepeat: "repeat-y",
           backgroundSize: "100% auto",
           minHeight: "100vh",
