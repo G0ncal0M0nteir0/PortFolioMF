@@ -27,6 +27,17 @@ export default function DesignGrafico() {
     fetch();
   }, []);
 
+  // Split works into 4 columns like Pinterest does
+  const columns: any[][] = [[], [], [], []];
+  works.forEach((work, i) => {
+    columns[i % 4].push(work);
+  });
+
+  const getAspectRatio = (i: number) => {
+    const ratios = ["3 / 4", "4 / 5", "1 / 1"];
+    return ratios[i % 3];
+  };
+
   return (
     <>
       <Navbar onCategoriaSelect={() => {}} />
@@ -60,96 +71,107 @@ export default function DesignGrafico() {
           />
         </div>
 
-        {/* ── PINTEREST MASONRY GRID ── */}
+        {/* ── PINTEREST MASONRY ── */}
         <div
           style={{
             padding: "48px 48px 80px 48px",
-            columnCount: 4,
-            columnGap: 16,
-            columnFill: "balance",
+            display: "flex",
+            gap: 16,
+            boxSizing: "border-box",
+            alignItems: "flex-start",
           }}
         >
-          {works.map((work, i) => (
+          {columns.map((col, colIndex) => (
             <div
-              key={work.id}
+              key={colIndex}
               style={{
-                breakInside: "avoid",
-                marginBottom: 16,
-                cursor: "pointer",
-                position: "relative",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.transform = "scale(1.02)";
-                el.style.transition = "transform 0.25s ease";
-                const overlay = el.querySelector(".overlay") as HTMLDivElement;
-                if (overlay) overlay.style.opacity = "1";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.transform = "scale(1)";
-                const overlay = el.querySelector(".overlay") as HTMLDivElement;
-                if (overlay) overlay.style.opacity = "0";
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                gap: 16,
               }}
             >
-              <div
-                style={{
-                  width: "100%",
-                  aspectRatio: i % 3 === 0 ? "3 / 4" : i % 3 === 1 ? "4 / 5" : "1 / 1",
-                  overflow: "hidden",
-                  background: "#ccc",
-                  borderRadius: 16,
-                  position: "relative",
-                }}
-              >
-                <img
-                  src={work.imagem}
-                  alt={work.titulo}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).style.display = "none";
-                  }}
-                />
-
+              {col.map((work, i) => (
                 <div
-                  className="overlay"
+                  key={work.id}
                   style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%)",
-                    opacity: 0,
-                    transition: "opacity 0.25s ease",
-                    display: "flex",
-                    alignItems: "flex-end",
-                    padding: "14px 12px",
-                    borderRadius: 16,
+                    cursor: "pointer",
+                    position: "relative",
+                  }}
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget as HTMLDivElement;
+                    el.style.transform = "scale(1.02)";
+                    el.style.transition = "transform 0.25s ease";
+                    const overlay = el.querySelector(".overlay") as HTMLDivElement;
+                    if (overlay) overlay.style.opacity = "1";
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLDivElement;
+                    el.style.transform = "scale(1)";
+                    const overlay = el.querySelector(".overlay") as HTMLDivElement;
+                    if (overlay) overlay.style.opacity = "0";
                   }}
                 >
+                  <div
+                    style={{
+                      width: "100%",
+                      aspectRatio: getAspectRatio(i),
+                      overflow: "hidden",
+                      background: "#ccc",
+                      borderRadius: 16,
+                      position: "relative",
+                    }}
+                  >
+                    <img
+                      src={work.imagem}
+                      alt={work.titulo}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.display = "none";
+                      }}
+                    />
+
+                    <div
+                      className="overlay"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%)",
+                        opacity: 0,
+                        transition: "opacity 0.25s ease",
+                        display: "flex",
+                        alignItems: "flex-end",
+                        padding: "14px 12px",
+                        borderRadius: 16,
+                      }}
+                    >
+                      <p
+                        className={garamondItalic.className}
+                        style={{ margin: 0, fontSize: 14, color: "#fff" }}
+                      >
+                        {work.data_de_criacao}
+                      </p>
+                    </div>
+                  </div>
+
                   <p
                     className={garamondItalic.className}
-                    style={{ margin: 0, fontSize: 14, color: "#fff" }}
+                    style={{
+                      margin: "6px 4px 0 4px",
+                      fontSize: 18,
+                      fontWeight: 700,
+                      color: "#ffffff",
+                    }}
                   >
-                    {work.data_de_criacao}
+                    {work.titulo}
                   </p>
                 </div>
-              </div>
-
-              <p
-                className={garamondItalic.className}
-                style={{
-                  margin: "6px 4px 0 4px",
-                  fontSize: 18,
-                  fontWeight: 700,
-                  color: "#ffffff",
-                }}
-              >
-                {work.titulo}
-              </p>
+              ))}
             </div>
           ))}
         </div>

@@ -65,17 +65,16 @@ export default function Fotografia() {
         <div
           style={{
             padding: "48px 48px 80px 48px",
-            columnCount: 5,
-            columnGap: 20,
-            columnFill: "balance",
+            display: "grid",
+            gridTemplateColumns: "repeat(5, 1fr)",
+            gap: 20,
+            boxSizing: "border-box",
           }}
         >
           {works.map((work) => (
             <div
               key={work.id}
               style={{
-                breakInside: "avoid",
-                marginBottom: 20,
                 cursor: "pointer",
               }}
               onMouseEnter={(e) => {
